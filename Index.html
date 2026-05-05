@@ -129,6 +129,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div style="display:flex;align-items:center;gap:8px">
     <span id="save-lbl" style="font-size:11px;color:rgba(255,255,255,.4)">✓ Gespeichert</span>
     <span class="hdr-badge" id="hy">WJ 2025/26</span>
+    <span style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.5px">v14.1</span>
   </div>
 </header>
 <nav class="tabs" id="tabs"></nav>
@@ -171,7 +172,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <div id="pg-jour2" class="pg">
-  <div class="pghead"><div class="st">Journal nach Konto</div><div class="pgr"><div class="ef" id="ef-jour2"></div><button class="btn btn-p btn-sm" onclick="doDruckJour2()">🖨 Drucken</button></div></div>
+  <div class="pghead"><div class="st">Journal nach Konto</div><div class="pgr"><div class="ef" id="ef-jour2"></div><button class="btn btn-p btn-sm" id="btn-druck-jour2">🖨 Drucken</button></div></div>
   <div class="card"><div class="fb"><div class="fr">
     <div class="fg"><label>Monat</label><select id="j2-mon" onchange="renderJour2()"><option value="">Alle</option></select></div>
     <div class="fg"><label>Typ</label><select id="j2-typ" onchange="renderJour2()"><option value="">Alle</option><option value="Einnahmen">Einnahmen</option><option value="Ausgaben">Ausgaben</option></select></div>
@@ -186,7 +187,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <div id="pg-plan" class="pg">
-  <div class="pghead"><div class="st">Planrechnung</div><div class="pgr"><div class="ef" id="ef-plan"></div><button class="btn btn-p btn-sm" onclick="doDruckPlan()">🖨 Drucken</button></div></div>
+  <div class="pghead"><div class="st">Planrechnung</div><div class="pgr"><div class="ef" id="ef-plan"></div><button class="btn btn-p btn-sm" id="btn-druck-plan">🖨 Drucken</button></div></div>
   <div class="card"><div class="tw"><table><thead><tr><th>Nr.</th><th>Bezeichnung</th><th>Entität</th><th style="text-align:right">Plan</th><th style="text-align:right">Ist</th><th style="text-align:right">Diff.</th><th>Auslastung</th></tr></thead><tbody id="plan-b"></tbody><tfoot id="plan-f"></tfoot></table></div></div>
 </div>
 
@@ -471,6 +472,9 @@ buildEF('ef-jour',function(e){jourEnt=e;renderJour();});
 buildEF('ef-jour2',function(e){jour2Ent=e;renderJour2();});
 buildEF('ef-kp',function(e){kpEnt=e;renderKP();});
 buildEF('ef-plan',function(e){planEnt=e;renderPlan();});
+/* Drucken-Buttons per addEventListener – kein onclick-Konflikt möglich */
+document.getElementById('btn-druck-jour2').addEventListener('click', function() { doDruckJour2(); });
+document.getElementById('btn-druck-plan').addEventListener('click', function() { doDruckPlan(); });
 switchTab('dash');
 </script>
 
